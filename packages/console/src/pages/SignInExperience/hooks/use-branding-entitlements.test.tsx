@@ -45,10 +45,12 @@ describe('useBrandingEntitlements', () => {
   beforeEach(resetMockEnv);
 
   describe('outside Cloud', () => {
-    it('keeps both features locked without a license', () => {
+    // Fork (d-arken/logto): hiding the Logto branding is part of the OSS defaults, so it is unlocked
+    // without a license; the Custom UI CSP stays locked.
+    it('unlocks only hiding the branding without a license', () => {
       expect(renderWithContext({})).toStrictEqual({
-        isHideLogtoBrandingAvailable: false,
-        isHideLogtoBrandingEnabled: false,
+        isHideLogtoBrandingAvailable: true,
+        isHideLogtoBrandingEnabled: true,
         isCustomUiCspEnabled: false,
       });
     });
@@ -60,8 +62,8 @@ describe('useBrandingEntitlements', () => {
           licenseQuota: ossDefaultQuota,
         })
       ).toStrictEqual({
-        isHideLogtoBrandingAvailable: false,
-        isHideLogtoBrandingEnabled: false,
+        isHideLogtoBrandingAvailable: true,
+        isHideLogtoBrandingEnabled: true,
         isCustomUiCspEnabled: false,
       });
     });
@@ -83,8 +85,8 @@ describe('useBrandingEntitlements', () => {
         isCustomUiCspEnabled: false,
       });
       expect(renderWithContext(withLicense({ bringYourUi: true }))).toStrictEqual({
-        isHideLogtoBrandingAvailable: false,
-        isHideLogtoBrandingEnabled: false,
+        isHideLogtoBrandingAvailable: true,
+        isHideLogtoBrandingEnabled: true,
         isCustomUiCspEnabled: true,
       });
     });
@@ -94,7 +96,7 @@ describe('useBrandingEntitlements', () => {
         renderWithContext({
           currentSubscriptionQuota: { ...defaultSubscriptionQuota, bringYourUiEnabled: true },
         })
-      ).toMatchObject({ isHideLogtoBrandingEnabled: false, isCustomUiCspEnabled: false });
+      ).toMatchObject({ isHideLogtoBrandingEnabled: true, isCustomUiCspEnabled: false });
     });
   });
 

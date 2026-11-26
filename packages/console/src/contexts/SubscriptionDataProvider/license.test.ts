@@ -91,7 +91,8 @@ describe('getEffectiveLicenseQuota', () => {
 
   it.each([0, 1])('falls back to OSS defaults %i ms after grace ends', (offset) => {
     expect(getEffectiveLicenseQuota(fullLicense, graceEndsAt + offset)).toEqual({
-      hideLogtoBranding: false,
+      // Fork (d-arken/logto): hiding the Logto branding is part of the OSS defaults.
+      hideLogtoBranding: true,
       bringYourUi: false,
       idpInitiatedSso: false,
       consoleCollaboration: false,
