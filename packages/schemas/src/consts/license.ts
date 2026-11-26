@@ -256,7 +256,9 @@ export const licensePayloadGuard = z.object({
  * definition of "self-hosted, no license".
  */
 export const ossDefaultQuota = Object.freeze({
-  hideLogtoBranding: false,
+  // Fork (d-arken/logto): self-hosted darkm.dev instance may hide the "Powered by Logto" signature
+  // without a license key. Upstream default is `false`.
+  hideLogtoBranding: true,
   bringYourUi: false,
   idpInitiatedSso: false,
   consoleCollaboration: false,

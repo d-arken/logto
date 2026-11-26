@@ -104,9 +104,10 @@ describe('licensePayloadGuard', () => {
 });
 
 describe('ossDefaultQuota', () => {
-  it('locks every feature and caps SAML applications at 3', () => {
+  // Fork (d-arken/logto): hiding the Logto branding is allowed without a license.
+  it('locks every feature except hiding the branding and caps SAML applications at 3', () => {
     expect(ossDefaultQuota).toStrictEqual({
-      hideLogtoBranding: false,
+      hideLogtoBranding: true,
       bringYourUi: false,
       idpInitiatedSso: false,
       consoleCollaboration: false,
